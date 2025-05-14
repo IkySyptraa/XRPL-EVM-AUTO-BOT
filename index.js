@@ -13,9 +13,8 @@ const FACTORY_ADDRESS = "0x0c28777DEebe4589e83EF2Dc7833354e6a0aFF85";
 const tokens = {
   XRP:    "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
   RISE:   "0x0c28777DEebe4589e83EF2Dc7833354e6a0aFF85",
-  RIBBIT: "0x73ee7BC68d3f07CfcD68776512b7317FE57E1939",
-  WXRP:   "0x81Be083099c2C65b062378E74Fa8469644347BB7"
-};
+  R .filter(k => k.startsWith('PRIVATE_KEY'))
+  .map(k => process.env[k]);
 
 if (!process.env.RPC_URL) {
   console.error(chalk.red("ERROR: RPC_URL is not set in your .env file!"));
