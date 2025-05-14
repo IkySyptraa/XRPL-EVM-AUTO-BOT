@@ -7,22 +7,14 @@ const factoryAbi = require('./UniswapV2Factory.json');
 const erc20Abi = require('./ERC20.json');
 // const erc20Bytecode = require('./ERC20Bytecode.json'); // Uncomment and provide if you want to deploy tokens
 
-// ======= SET YOUR DEX ROUTER/FACTORY ADDRESSES =======
-const ROUTER_ADDRESS  = "0x81Be083099c2C65b062378E74Fa8469644347BB7"; // Example XRiSE33 Router
-const FACTORY_ADDRESS = "0x0c28777DEebe4589e83EF2Dc7833354e6a0aFF85"; // Example XRiSE33 Factory
-// =====================================================
+const ROUTER_ADDRESS  = "0x81Be083099c2C65b062378E74Fa8469644347BB7";
+const FACTORY_ADDRESS = "0x0c28777DEebe4589e83EF2Dc7833354e6a0aFF85";
 
-// ======= XRPL EVM TOKEN ADDRESSES =======
 const tokens = {
-  XRP:    "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+  XRP:   0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
   RISE:   "0x0c28777DEebe4589e83EF2Dc7833354e6a0aFF85",
   RIBBIT: "0x73ee7BC68d3f07CfcD68776512b7317FE57E1939",
-  WXRP:   "0x81Be083099c2C65b062378E74Fa8469644347BB7"
-};
-
-const privateKeys = Object.keys(process.env)
-  .filter(k => k.startsWith('PRIVATE_KEY'))
-  .map(k => process.env[k]);
+  WXRP:   "0x81Be083099c2.env[k]);
 
 if (!process.env.RPC_URL) {
   console.error(chalk.red("ERROR: RPC_URL is not set in your .env file!"));
@@ -82,19 +74,34 @@ async function approveIfNeeded(tokenAddress, wallet, spender, amount) {
 async function swapToken(wallet, tokenIn, tokenOut, amountIn, toAddr) {
   const router = new ethers.Contract(ROUTER_ADDRESS, routerAbi, wallet);
   const deadline = Math.floor(Date.now() / 1000) + 60 * 10;
-  await approveIfNeeded(tokenIn, wallet, ROUTER_ADDRESS, amountIn);
   let amountOutMin = 0;
-  const path = [tokenIn, tokenOut];
-  const tx = await router.swapExactTokensForTokens(
-    amountIn,
-    amountOutMin,
-    path,
-    toAddr,
-    deadline
-  );
-  console.log(chalk.greenBright(`Swap tx: ${tx.hash}`));
-  await tx.wait();
-  console.log(chalk.green('✅ Swap completed!'));
+
+  if (tokenIn === tokens.XRP) {
+    const path = [tokens.WXRP, tokenOut];
+    const tx = await router.swapExactETHForTokens(
+      amountOutMin,
+      path,
+      toAddr,
+      deadline,
+      { value: amountIn }
+    );
+    console.log(chalk.greenBright(`Swap tx: ${tx.hash}`));
+    await tx.wait();
+    console.log(chalk.green('✅ Swap completed!'));
+  } else {
+    await approveIfNeeded(tokenIn, wallet, ROUTER_ADDRESS, amountIn);
+    const path = [tokenIn, tokenOut];
+    const tx = await router.swapExactTokensForTokens(
+      amountIn,
+      amountOutMin,
+      path,
+      toAddr,
+      deadline
+    );
+    console.log(chalk.greenBright(`Swap tx: ${tx.hash}`));
+    await tx.wait();
+    console.log(chalk.green('✅ Swap completed!'));
+  }
 }
 
 async function addLiquidity(wallet, tokenA, tokenB, amtA, amtB) {
