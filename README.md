@@ -75,7 +75,7 @@ Supports token swaps, liquidity management, transfers, and more—across one or 
 1. **Run the bot:**
 
    ```
-   node index.js
+   node index.cjs
    ```
 
 2. **Follow the on-screen menu:**
