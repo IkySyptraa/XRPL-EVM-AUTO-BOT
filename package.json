@@ -1,10 +1,24 @@
 {
   "name": "xrpl-evm-auto-bot",
-  "version": "1.0.0",
+  "version": "1.1.0",
+  "description": "Recode Must Add Source !!",
   "type": "module",
   "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
   "dependencies": {
     "ethers": "^6.0.0",
-    "dotenv": "^16.0.0"
-  }
+    "dotenv": "^16.0.0",
+    "chalk": "^5.0.0"
+  },
+  "keywords": [
+    "xrpl",
+    "evm",
+    "erc20",
+    "swap",
+    "bot"
+  ],
+  "author": "PetrukStar",
+  "license": "MIT"
 }
