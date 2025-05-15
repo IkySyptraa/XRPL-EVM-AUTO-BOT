@@ -99,7 +99,7 @@ MIT
 
 Developed by @PetrukStar
 
-telegram: https://.time/PetrukStar
+telegram: https://t.me/PetrukStar
 
 github: https://github.com/PetrukStar
 XRPL EVM Multi-Bot Terminal
