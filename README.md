@@ -1,106 +1,91 @@
 # XRPL-EVM-AUTO-BOT
 
-A multi-purpose terminal bot for interacting with XRPL EVM DEX (e.g., XRiSE33) using Node.js and ethers.js.  
-Supports token swaps, liquidity management, transfers, and more—across one or multiple wallets.
+A versatile terminal bot for interacting with XRPL EVM DEX (e.g., XRiSE33) using Node.js and ethers.js.  
+Supports token swaps, liquidity management, token deployment, random airdrops, and multi-wallet operations.
 
 ---
 
 ## Features
 
-- **Swap Tokens** (including Native XRPL, RISE, RIBBIT, WXRP)
-- **Custom Token Swaps**
-- **Add Liquidity**
-- **Deploy ERC20 Token** (requires ERC20 bytecode, optional)
-- **Transfer Tokens or Native XRPL**
-- **Random/Custom Recipient Address**
-- **Multi-wallet support** (just add more private keys)
+- **Token Swaps** (XRP, RISE, RIBBIT, WXRP, or any custom token)
+- **Custom Token Swaps** (choose any tokenIn/tokenOut)
+- **Add Liquidity** (liquidity pool management)
+- **Deploy ERC20 Token** (requires ERC20Bytecode.json & ABI)
+- **Random Token Transfers** (simulate airdrop)
+- **Multi-wallet Support** (just add more PRIVATE_KEYs in your `.env`)
+- **Interactive Terminal Menu**
+- **Send transactions to random or custom addresses**
 
 ---
 
 ## Requirements
 
-- Node.js (v16 or above recommended)
-- NPM/Yarn
-- An XRPL EVM RPC endpoint
-- Your private key(s) for wallet(s)
-- ABI JSON files:  
-  - `ERC20.json`  
-  - `UniswapV2Router02.json`  
-  - `UniswapV2Factory.json`
+- Node.js (v16 or higher)
+- NPM
+- XRPL EVM RPC endpoint (default: `http://rpc.xrplevm.org/`, configurable via `.env` or `index.js`)
+- At least one private key (add in `.env`)
+
 
 ---
 
 ## Setup
 
-1. **Clone the repository and enter the directory:**
-
+1. **Clone the repository & enter the directory:**
    ```bash
    git clone https://github.com/IkySyptraa/XRPL-EVM-AUTO-BOT.git
    cd XRPL-EVM-AUTO-BOT
    ```
 
 2. **Install dependencies:**
-
    ```bash
    npm install
    ```
 
 3. **Prepare your `.env` file:**
-
    ```
-   RPC_URL=https://your-xrpl-evm-rpc-url
    PRIVATE_KEY1=0xyourfirstprivatekey
-   # Add more wallets as needed:
    # PRIVATE_KEY2=0xyoursecondprivatekey
    # PRIVATE_KEY3=...
+   # Add more wallets if needed:
    ```
 
-4. **Place ABI files in the project folder:**
-
-   - `ERC20.json`
-   - `UniswapV2Router02.json`
-   - `UniswapV2Factory.json`
-
-5. **Edit DEX addresses in `index.js` if necessary:**
-
-   ```js
-   const ROUTER_ADDRESS  = "0x..."; // Your DEX router address
-   const FACTORY_ADDRESS = "0x..."; // Your DEX factory address
-   ```
-
----
 
 ## Usage
 
 1. **Run the bot:**
-
+   ```bash
+   node index.js
    ```
-   node index.cjs
+   _or with npm:_
+   ```bash
+   npm start
    ```
 
-2. **Follow the on-screen menu:**
-   - Choose operations like token swap, add liquidity, transfer, etc.
-   - Enter amounts and addresses as prompted.
+2. **Follow the interactive terminal menu:**
+   - Choose swap, add liquidity, deploy, etc.
+   - Enter amounts, recipient addresses, and other prompts as needed.
 
 ---
 
-## Supported Tokens (example)
+## Default Tokens
 
 - XRP:    `0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE`
 - RISE:   `0x0c28777DEebe4589e83EF2Dc7833354e6a0aFF85`
 - RIBBIT: `0x73ee7BC68d3f07CfcD68776512b7317FE57E1939`
-- WXRP:   `0x81Be083099c2C65b062378E74Fa8469644347BB7`
-
-You can add more tokens in the `tokens` object in `index.js`.
+- WXRP:   `0x`.**
 
 ---
 
 ## Notes
 
 - **Never share your private key.**  
-  Use .env for private key storage, and never commit your .env to public repositories.
-- **Deploy Token**: To enable token deployment, supply `ERC20Bytecode.json` and uncomment the relevant code in `index.js`.
-- **Multi-wallet**: The bot will loop through every wallet found in your `.env` file.
+  Store it in `.env` and never commit your `.env` to public repositories.
+- **Deploy Token:**  
+  Make sure `ERC20Bytecode.json` and related ABI are correct before using the deploy menu.
+- **Multi-wallet:**  
+  The bot will automatically loop through all `PRIVATE_KEY` entries in your `.env`.
+- **Random Transfer:**  
+  Random address transfer is useful for airdrop simulation and testnet usage.
 
 ---
 
@@ -112,7 +97,13 @@ MIT
 
 ## Credits
 
-Developed by [@PetrukStar](https://github.com/PetrukStar)  
-XRPL-EVM-AUTO-BOT
+Developed by @PetrukStar
+
+telegram: https://.time/PetrukStar
+
+github: https://github.com/PetrukStar
+XRPL EVM Multi-Bot Terminal
 
 ---
+
+Let me know if you want to add badges, usage tips, screenshots, or any other section!
